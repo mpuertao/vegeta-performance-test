@@ -1,0 +1,46 @@
+version: 2.1
+
+jobs:
+  loadtest:
+    docker:
+      - image: cimg/go:1.20  # Use a Go Docker image
+    steps:
+      - checkout  # Check out the code from the repository
+
+      - run:
+          name: Install Vegeta
+          command: |
+            go install github.com/tsenart/vegeta/v12@latest
+
+      - run:
+          name: Run Vegeta load test
+          command: |
+            vegeta attack -targets=targets.txt -rate 400 -duration=10m > results.bin
+          no_output_timeout: 10m  # Set a timeout for the load test
+
+      - run:
+          name: Generate Vegeta report
+          command: |
+            vegeta report results.bin > report.txt
+
+      - run:
+          name: Generate report HTML
+          command: |
+            vegeta plot results.bin > plot.html      
+
+      - store_artifacts:
+          path: results.bin  # Save the Vegeta binary results as an artifact
+          destination: results.bin
+
+      - store_artifacts:
+          path: report.txt  # Save the Vegeta text report as an artifact
+          destination: report.txt
+
+      - store_artifacts:
+          path: plot.html
+          destination: plot.html
+
+workflows:
+  loadtest-workflow:
+    jobs:
+      - loadtest

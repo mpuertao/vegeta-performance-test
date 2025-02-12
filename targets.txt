@@ -1,0 +1,6 @@
+GET https://restful-booker.herokuapp.com/booking
+
+POST https://restful-booker.herokuapp.com/booking
+Content-Type: application/json
+Accept: application/json
+{"firstname": "John", "lastname": "Doe", "totalprice": 123, "depositpaid": true, "bookingdates": {"checkin": "2025-10-01", "checkout": "2025-10-05"}, "additionalneeds": "Breakfast"}
