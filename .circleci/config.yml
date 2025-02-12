@@ -3,7 +3,7 @@ version: 2.1
 jobs:
   loadtest:
     docker:
-      - image: cimg/go:1.20  # Use a Go Docker image
+      - image: cimg/go:1.22.12 # Use a Go Docker image
     steps:
       - checkout  # Check out the code from the repository
 
