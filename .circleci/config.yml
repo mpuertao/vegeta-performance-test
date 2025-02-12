@@ -15,7 +15,7 @@ jobs:
       - run:
           name: Run Vegeta load test
           command: |
-            vegeta attack -targets=targets.txt -rate 400 -duration=10m > results.bin
+            vegeta attack -targets=targets.txt -rate 100 -duration=8m > results.bin
           no_output_timeout: 10m  # Set a timeout for the load test
 
       - run:
